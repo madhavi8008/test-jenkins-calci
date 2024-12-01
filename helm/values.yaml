@@ -1,0 +1,16 @@
+image:
+  repository: your-registry/calci
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 8080
+
+ingress:
+  enabled: true
+  className: "nginx"       # Adjust based on your ingress controller
+  host: "calci.local"      # Replace with your desired hostname
+  tls:                     # Optional: Enable HTTPS
+    enabled: false
+    secretName: "calci-tls" # TLS secret for HTTPS (if enabled)

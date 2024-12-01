@@ -1,0 +1,84 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id 'com.google.cloud.tools.jib' version '3.3.0'
+//	id 'com.jfrog.artifactory' version '4.24.9'
+//	id 'CalciApplication'
+}
+
+group = 'com.seshu.calci'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		url 'https://repo.gradle.org/gradle/libs-releases-local'
+	}
+}
+
+/*artifactory {
+	contextUrl = 'https://your-artifactory-domain/artifactory'
+	publish {
+		repository {
+			repoKey = 'libs-release-local'
+			username = project.findProperty("artifactory_user") ?: System.getenv("ARTIFACTORY_USER")
+			password = project.findProperty("artifactory_password") ?: System.getenv("ARTIFACTORY_PASSWORD")
+		}
+		defaults {
+			publications 'mavenJava'
+		}
+	}
+}
+
+task uploadToArtifactory {
+	dependsOn build
+	doLast {
+		println 'Pushing artifacts to Artifactory...'
+		artifactoryPublish {
+			publications = [jar]
+		}
+	}
+}
+*/
+dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//	implementation 'org.springframework.boot:spring-boot-starter-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+jib {
+	from {
+		image = 'openjdk:17-jdk-alpine' // You can use a different base image if needed
+	}
+	to {
+		image = 'madhavi8008/calci' // Replace with your Docker Hub image name
+		tags = ['latest']
+		auth {
+			username = project.findProperty('docker.username') ?: System.getenv('DOCKER_USERNAME')
+			password = project.findProperty('docker.password') ?: System.getenv('DOCKER_PASSWORD')
+		}
+	}
+	container {
+		mainClass = 'com.seshu.calci.calci.CalculatorApplication' // Replace with your main class
+	}
+}
+
+bootJar {
+	archiveBaseName = 'calci'
+	version = '1.0.0'
+}

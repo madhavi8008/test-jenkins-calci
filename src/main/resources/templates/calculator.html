@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="calculator">
+    <h1>Simple Calculator</h1>
+    <form action="/calculate" method="POST">
+        <input type="text" name="num1" placeholder="Enter first number" required>
+        <select name="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" name="num2" placeholder="Enter second number" required>
+        <button type="submit">Calculate</button>
+    </form>
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+    <div th:if="${result != null}">
+        <h2>Result: <span th:text="${result}"></span></h2>
+    </div>
+</div>
+</body>
+</html>
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Calculator</title>-->
+<!--    <link rel="stylesheet" href="/css/styles.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="calculator">-->
+<!--    <h1>Simple Calculator</h1>-->
+<!--    <form action="/calculate" method="POST">-->
+<!--        <div class="display">-->
+<!--            <input type="text" name="num1" id="num1" placeholder="Enter number" value="" readonly>-->
+<!--        </div>-->
+<!--        <div class="buttons">-->
+<!--            <div class="button-row">-->
+<!--                <button type="button" class="button" onclick="appendNumber('7')">7</button>-->
+<!--                <button type="button" class="button" onclick="appendNumber('8')">8</button>-->
+<!--                <button type="button" class="button" onclick="appendNumber('9')">9</button>-->
+<!--                <button type="button" class="button" onclick="appendOperator('/')">/</button>-->
+<!--            </div>-->
+<!--            <div class="button-row">-->
+<!--                <button type="button" class="button" onclick="appendNumber('4')">4</button>-->
+<!--                <button type="button" class="button" onclick="appendNumber('5')">5</button>-->
+<!--                <button type="button" class="button" onclick="appendNumber('6')">6</button>-->
+<!--                <button type="button" class="button" onclick="appendOperator('*')">*</button>-->
+<!--            </div>-->
+<!--            <div class="button-row">-->
+<!--                <button type="button" class="button" onclick="appendNumber('1')">1</button>-->
+<!--                <button type="button" class="button" onclick="appendNumber('2')">2</button>-->
+<!--                <button type="button" class="button" onclick="appendNumber('3')">3</button>-->
+<!--                <button type="button" class="button" onclick="appendOperator('-')">-</button>-->
+<!--            </div>-->
+<!--            <div class="button-row">-->
+<!--                <button type="button" class="button" onclick="appendNumber('0')">0</button>-->
+<!--                <button type="button" class="button" onclick="clearDisplay()">C</button>-->
+<!--                <button type="submit" class="button" onclick="submitCalculation()">=</button>-->
+<!--                <button type="button" class="button" onclick="appendOperator('+')">+</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--    <div th:if="${error}" class="error">-->
+<!--        <p th:text="${error}"></p>-->
+<!--    </div>-->
+<!--    <div th:if="${result != null}">-->
+<!--        <h2>Result: <span th:text="${result}"></span></h2>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    // Update the input field as user clicks buttons-->
+<!--    function appendNumber(number) {-->
+<!--        document.getElementById("num1").value += number;-->
+<!--    }-->
+
+<!--    function appendOperator(operator) {-->
+<!--        document.getElementById("num1").value += operator;-->
+<!--    }-->
+
+<!--    function clearDisplay() {-->
+<!--        document.getElementById("num1").value = '';-->
+<!--    }-->
+
+<!--    function submitCalculation() {-->
+<!--        // The form will automatically submit with the entered expression-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
